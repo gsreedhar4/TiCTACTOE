@@ -10,6 +10,8 @@ public class TicTacToeDao
 	public TicTacToe processGame(int cell, int playerTurn)
 	{
 		TicTacToe ticTac = new TicTacToe();
+		try
+		{
 		ticTac.setCellId(cell);
 		if(dashBoard[cell-1] == null)
 		{
@@ -31,7 +33,11 @@ public class TicTacToeDao
 			ticTac.setCellOccupied(true);
 			ticTac.setMessage("Cell already occupied");
 		}		
-		
+		}
+		catch(Exception ex)
+		{
+			ticTac.setMessage(ex.getMessage());
+		}
 		return ticTac;
 	}
 	

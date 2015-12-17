@@ -19,6 +19,7 @@ public class TicTacToeService
 	   @Path("/play/{cell}/{turn}")
 	   @Produces(MediaType.APPLICATION_JSON)
 	   public TicTacToe getUsers(@PathParam("cell") int cell, @PathParam("turn") int playerTurn){
+		   
 		  TicTacToe ticTac =    ticTacDao.processGame(cell, playerTurn);
 	      return ticTac;
 	  }	
