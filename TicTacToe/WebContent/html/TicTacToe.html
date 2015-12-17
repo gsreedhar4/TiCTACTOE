@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/main.css"/>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript">
+		
+		var painted;
+		var content;
+		var playerTurn = 0;
+		var theCanvas;
+		var c;
+		var cxt;
+		var w;
+		var y;
+
+ //Instanciate Arrays
+		window.onload=function(){
+			
+			painted = new Array();
+			content = new Array();
+
+			for(var l = 0; l <= 8; l++){
+			painted[l] = false;
+			content[l]='';
+			}
+		} 
+
+		//Game methods
+		function onCanvasBoxClicked(canvasBoxId){
+			theCanvas = "canvas_box"+canvasBoxId;
+			c = document.getElementById(theCanvas);
+			cxt = c.getContext("2d");
+			
+			
+			$.ajax({ 
+				   type: "GET",
+				   dataType: "json",
+				   url: "/TicTacToe/game/TicTacService/play/"+canvasBoxId+"/"+playerTurn,
+				   success: function(data){ 
+				    if(data.playerId =='1')
+				    {
+				    	cxt.beginPath();
+						cxt.moveTo(10,10);
+						cxt.lineTo(40,40);
+						cxt.moveTo(40,10);
+						cxt.lineTo(10,40);
+						cxt.stroke();
+						cxt.closePath();
+						content[data.cellId-1] = 'X';
+				    }
+				    else if(data.playerId =='2')
+				    {
+				    	cxt.beginPath();
+						cxt.arc(25,25,20,0,Math.PI*2,true);
+						cxt.stroke();
+						cxt.closePath();
+						content[data.cellId-1] = 'O';				    	
+				     }
+				    
+				    if(data.cellOccupied)
+				    {
+				    	alert(data.message);
+				    }
+				    if(data.gameOver)
+				    {
+				    	alert(data.message);
+				    	location.reload(true);
+				    }
+				   }
+				});
+		}
+
+		</script>
+	</head>
+	<body>
+		<div id ="tictac">
+			<h1>TIC - TAC - TOE!</h1>
+			<canvas id = "canvas_box1"  width="50" height="50" style="border:1px solid black" onclick="onCanvasBoxClicked(1);"></canvas>
+			<canvas id = "canvas_box2"  width="50" height="50" style="border:1px solid black" onclick="onCanvasBoxClicked(2);"></canvas>
+			<canvas id = "canvas_box3"  width="50" height="50" style="border:1px solid black" onclick="onCanvasBoxClicked(3);"></canvas><br/>
+			<canvas id = "canvas_box4"  width="50" height="50" style="border:1px solid black" onclick="onCanvasBoxClicked(4);"></canvas>
+			<canvas id = "canvas_box5"  width="50" height="50" style="border:1px solid black" onclick="onCanvasBoxClicked(5);"></canvas>
+			<canvas id = "canvas_box6"  width="50" height="50" style="border:1px solid black" onclick="onCanvasBoxClicked(6);"></canvas><br/>
+			<canvas id = "canvas_box7"  width="50" height="50" style="border:1px solid black" onclick="onCanvasBoxClicked(7);"></canvas>
+			<canvas id = "canvas_box8"  width="50" height="50" style="border:1px solid black" onclick="onCanvasBoxClicked(8);"></canvas>
+			<canvas id = "canvas_box9"  width="50" height="50" style="border:1px solid black" onclick="onCanvasBoxClicked(9);"></canvas>
+		</div>
+	</body>
+</html>
+
