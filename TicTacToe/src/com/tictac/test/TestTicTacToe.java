@@ -22,6 +22,18 @@ public class TestTicTacToe {
 		
 		System.out.println(response.getStatus());
 		
+        response = (Response) service.path("TicTacService").path("play").path("1").path("2").request(MediaType.APPLICATION_JSON);
+		
+		System.out.println(response.getStatus());
+		
+		 response = (Response) service.path("TicTacService").path("play").path("5").path("1").request(MediaType.APPLICATION_JSON);
+			
+		System.out.println(response.getStatus());
+		
+		response = (Response) service.path("TicTacService").path("play").path("3").path("2").request(MediaType.APPLICATION_JSON);
+		
+		System.out.println(response.getStatus());
+		
 	}
 	
 	private static URI getBaseURI() {
